@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'mainapp.context_processors.google_maps_settings',
             ],
         },
     },
@@ -149,5 +150,6 @@ EMAIL_HOST_PASSWORD = SET_EMAIL_HOST_PASSWORD
 EMAIL_PORT = SET_EMAIL_PORT
 EMAIL_BACKEND = SET_EMAIL_BACKEND
 DEFAULT_FROM_EMAIL = SET_DEFAULT_FROM_EMAIL
+GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY', '')
 
 

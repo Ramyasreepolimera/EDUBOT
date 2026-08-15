@@ -298,7 +298,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="{% static 'main/js/jquery.validate.min.js' %}"></script>
         <script src="{% static 'main/js/contact.js' %}"></script>
         <!--gmaps Js-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=REMOVED_GOOGLE_API_KEY"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}"></script>
         <script src="{% static 'main/js/gmaps.min.js' %}"></script>
         <script src="{% static 'main/js/theme.js' %}"></script>
     </body>
