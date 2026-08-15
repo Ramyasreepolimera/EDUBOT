@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <title>Student Feedback</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/animate.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/jquery.timepicker.css' %}">
+
+    
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'student/stu-das/css/style.css' %}">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <style>
+        .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        }
+
+        .rating > input{ display:none;}
+
+        .rating > label {
+        position: relative;
+        width: 1em;
+        font-size: 4vw;
+        color: #FFD600;
+        cursor: pointer;
+        }
+        .rating > label::before{ 
+        content: "\2605";
+        position: absolute;
+        opacity: 0;
+        }
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before {
+        opacity: 1 !important;
+        }
+
+        .rating > input:checked ~ label:before{
+        opacity:1;
+        }
+
+        .rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+
+        body{ color: white;}
+        h1, p{ 
+        text-align: center;
+
+        }
+
+        h1{
+        margin-top:150px;
+        }
+        p{ font-size: 1.2rem;}
+        @media only screen and (max-width: 600px) {
+        h1{font-size: 14px;}
+        p{font-size: 12px;}
+        }
+</style>
+
+<script>
+    function validation(){
+        
+        material = document.myform.material;
+        video = document.myform.video;
+        message = document.myform.feedback;
+        
+        if(material.value.length <=0){
+            material.focus()
+            return false
+        };
+
+        if(video.value.length <=0){
+            video.focus()
+            return false
+        };
+
+        if (message.value.length <= 0){
+            alert('Please enter your feedback')
+            message.focus()
+            return false
+
+        };
+
+       
+    };
+</script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'stu-dashboard' %}"><span>Study</span>Lab</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a href="{% url 'stu-dashboard' %}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="{% url 'edubot' %}" class="nav-link">Edubot</a></li>
+
+                <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="{% url 'materials' %}" class="nav-link">Material</a></li>
+                <li class="nav-item"><a href="{% url 'profile' %}" class="nav-link">Profile</a></li>
+                {% comment %} <li class="nav-item active"><a href="{% url 'feedback' %}" class="nav-link">Feedback</a></li> {% endcomment %}
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">LogOut</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<div class="hero-wrap js-fullheight" style="background-image: url('{% static 'student/stu-das/images/bg_1.jpg' %}');">
+    <div class="overlay">
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate">
+                    <span class="subheading">Welcome to StudyLab</span>
+                    <h1 class="mb-4" style="color:black">Student Feedback</h1>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section ftco-about img">
+    <div class="container">
+        <div class="row d-flex">  
+            <div class="col-md-12 d-flex">
+
+                <form method="post" name='myform' onsubmit='return validation()'>
+                    {% csrf_token %}
+                    <div class="row g-3">
+                            <table class='table table-striped table-bordered '>
+                            <tr class='justify-content-end'>
+                                <td class='text-dark'>
+                                    1. How do you rate for Study materiala
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                    
+                                        <input type="radio" name="material" value="5" id="a-5"><label for="a-5">☆</label>
+                                        <input type="radio" name="material" value="4" id="a-4"><label for="a-4">☆</label>
+                                        <input type="radio" name="material" value="3" id="a-3"><label for="a-3">☆</label>
+                                        <input type="radio" name="material" value="2" id="a-2"><label for="a-2">☆</label>
+                                        <input type="radio" name="material" value="1" id="a-1"><label for="a-1">☆</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr class='justify-content-start'>
+                                <td class='text-dark '>
+                                    2. How do you rate for online videos
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                    
+                                        <input type="radio" name="video" value="5" id="b-5"><label for="b-5">☆</label>
+                                        <input type="radio" name="video" value="4" id="b-4"><label for="b-4">☆</label>
+                                        <input type="radio" name="video" value="2" id="b-2"><label for="b-2">☆</label>
+                                        <input type="radio" name="video" value="3" id="b-3"><label for="b-3">☆</label>
+                                        <input type="radio" name="video" value="1" id="b-1"><label for="b-1">☆</label>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            
+                        </table>
+                        <div class="col-md-12"> 
+                            <textarea class="form-control" rows="10" cols="60" placeholder="Leave a message here" id="message" name="feedback" ></textarea>
+                            <label for="message">Message</label>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                        </div>
+                    </div>  
+                    
+                </form>
+            </div> 
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section testimony-section bg-light">
+   <div class="overlay" style="background-image: url('{% static 'student/stu-das/images/bg_2.jpg' %}';"></div>
+        <div class="container">
+            <div class="row pb-4">
+                <div class="col-md-7 heading-section ftco-animate">
+                    <span class="subheading"></span>
+                    <h2 class="mb-4">What Are Students Says</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container container-2">
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel">
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img" style="background-image: url('{% static 'student/stu-das/images/person_1.jpg' %}')"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img" style="background-image: url('{% static 'student/stu-das/images/person_2.jpg' %}')"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                    <div class="user-img" style="background-image: url({% static 'student/stu-das/images/person_3.jpg' %}')"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Roger Scott</p>
+                                        <span class="position">Marketing Manager</span>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                    <div class="user-img" style="background-image: url('{% static 'student/stu-das/images/person_1.jpg' %}')"></div>
+                                    <div class="pl-3">
+                                        <p class="name">Roger Scott</p>
+                                        <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</section>
+
+
+
+
+
+
+
+
+
+<footer class="ftco-footer ftco-no-pt">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md pt-5">
+        <div class="ftco-footer-widget pt-md-5 mb-4">
+          <h2 class="ftco-heading-2">About</h2>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+            <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+            <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+            <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+        </ul>
+    </div>
+</div>
+<div class="col-md pt-5">
+    <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+      <h2 class="ftco-heading-2">Help Desk</h2>
+      <ul class="list-unstyled">
+        <li><a href="#" class="py-2 d-block">Customer Care</a></li>
+        <li><a href="#" class="py-2 d-block">Legal Help</a></li>
+        <li><a href="#" class="py-2 d-block">Services</a></li>
+        <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+        <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+        <li><a href="#" class="py-2 d-block">Call Us</a></li>
+    </ul>
+</div>
+</div>
+<div class="col-md pt-5">
+   <div class="ftco-footer-widget pt-md-5 mb-4">
+      <h2 class="ftco-heading-2">Recent Courses</h2>
+      <ul class="list-unstyled">
+        <li><a href="#" class="py-2 d-block">Computer Engineering</a></li>
+        <li><a href="#" class="py-2 d-block">Web Design</a></li>
+        <li><a href="#" class="py-2 d-block">Business Studies</a></li>
+        <li><a href="#" class="py-2 d-block">Civil Engineering</a></li>
+        <li><a href="#" class="py-2 d-block">Computer Technician</a></li>
+        <li><a href="#" class="py-2 d-block">Web Developer</a></li>
+    </ul>
+</div>
+</div>
+<div class="col-md pt-5">
+    <div class="ftco-footer-widget pt-md-5 mb-4">
+       <h2 class="ftco-heading-2">Have a Questions?</h2>
+       <div class="block-23 mb-3">
+         <ul>
+           <li><span class="icon fa fa-map-marker"></span><span class="text">LB Nagar Hyderabad</span></li>
+           <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+91 85558 87986</span></a></li>
+           <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">www.codebook.in</span></a></li>
+       </ul>
+   </div>
+</div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+
+    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://codebook.in" target="_blank">Codebook</a>
+      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+  </div>
+</div>
+</div>
+</footer>
+
+{% if messages %}              
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+        <script>swal({
+            title: "Warning!",
+            text: "{{message}}",
+            icon: "warning",
+            button: "OK",
+        });
+        </script>
+        
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+        <script>swal({
+            title: "Info :)",
+            text: "{{message}}",
+            icon: "info",
+            button: "OK",
+        });
+</script>
+{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+<script>swal({
+title: "Error :)",
+text: "{{message}}",
+icon: "error",
+button: "OK",
+});
+</script>
+{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<script>swal({
+title: "Success :)",
+text: "{{message}}",
+icon: "success",
+button: "OK",
+});
+</script>
+    {% endif %}              
+    {% endfor %} 
+    {% endif %}
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+<script src="{% static 'student/stu-das/js/jquery.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/popper.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'student/stu-das/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'student/stu-das/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'student/stu-das/js/scrollax.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=REMOVED_GOOGLE_API_KEY&sensor=false"></script>
+<script src="{% static 'student/stu-das/js/google-map.js' %}"></script>
+<script src="{% static 'student/stu-das/js/main.js' %}"></script>
+
+</body>
+</html>

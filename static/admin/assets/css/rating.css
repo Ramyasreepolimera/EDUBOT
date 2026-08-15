@@ -1,0 +1,66 @@
+.star-rating__stars {
+    position: relative;
+    height: 60px;
+    width:160px;
+    margin-top: 5px;
+    background: url(off.svg);
+    background-size: 2rem 5rem;
+  }
+  
+  .star-rating__label {
+    position: absolute;
+    height: 100%;
+    background-size: 2rem 5rem;
+  }
+  
+  .star-rating__input {
+    margin: 0px;
+    position: absolute;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  
+  .star-rating_stars .star-rating_label:nth-of-type(1) {
+    z-index: 5;
+    width: 20%;
+  }
+  
+  .star-rating_stars .star-rating_label:nth-of-type(2) {
+    z-index: 4;
+    width: 40%;
+  }
+  
+  .star-rating_stars .star-rating_label:nth-of-type(3) {
+    z-index: 3;
+    width: 60%;
+  }
+  
+  .star-rating_stars .star-rating_label:nth-of-type(4) {
+    z-index: 2;
+    width: 80%;
+  }
+  
+  .star-rating_stars .star-rating_label:nth-of-type(5) {
+    z-index: 1;
+    width: 100%;
+  }
+  
+  .star-rating_input:checked + .star-rating_label,
+  .star-rating_input:focus + .star-rating_label,
+  .star-rating__label:hover {
+    background-image: url(on.svg);
+  }
+  
+  .star-rating_label:hover ~ .star-rating_label {
+    background-image: url(off.svg);
+  }
+  
+  /* .star-rating_input:focus ~ .star-rating_focus {
+    position: absolute;
+    top: -.25em;
+    right: -.25em;
+    bottom: -.25em;
+    left: -.25em;
+    outline: 0.25rem solid lightblue;
+  } */

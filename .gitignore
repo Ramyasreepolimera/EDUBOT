@@ -1,0 +1,28 @@
+# Python virtual environments
+edu/
+edubotenv/
+.venv/
+venv/
+ENV/
+
+# Python/Django generated files
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+*.log
+
+# Environment secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# User-uploaded content
+media/
+
+# Archives and editor/OS files
+*.zip
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
